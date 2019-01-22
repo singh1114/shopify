@@ -1,0 +1,11 @@
+{% for order in orders.orders %}
+    <ul>
+        <li><strong>Total Price: </strong></li> {{ order.total_price }}
+        {% for item in order.line_items %}
+            <li><strong>Product Title: </strong></li> {{ item.title }}
+            <li><strong>Product Name: </strong></li> {{ item.name }}
+            <hr>
+            <br>
+        {% endfor %}
+    </ul>
+{% endfor %}
