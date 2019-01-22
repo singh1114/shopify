@@ -1,3 +1,5 @@
+<a href="{% url 'shopifyapp:products' %}">Products</a>
+
 {% for order in orders.orders %}
     <ul>
         <li><strong>Total Price: </strong></li> {{ order.total_price }}
