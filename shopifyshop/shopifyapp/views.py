@@ -1,12 +1,12 @@
 from django.shortcuts import render
 
-from base.views import BaseView
+from base.views import BaseAdminView
 
 from shopifyapp.handlers.orders import OrderHandler
 from shopifyapp.handlers.products import ProductHandler
 
 
-class ProductView(BaseView):
+class ProductView(BaseAdminView):
     """Product related views."""
 
     def get(self, request, *args, **kwargs):
@@ -16,7 +16,7 @@ class ProductView(BaseView):
         })
 
 
-class OrderView(BaseView):
+class OrderView(BaseAdminView):
     """Order view to place an order."""
 
     def get(self, request, *args, **kwargs):

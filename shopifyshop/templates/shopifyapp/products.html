@@ -1,35 +1,39 @@
-<a href="{% url 'shopifyapp:orders' %}">Orders</a>
+{% extends 'admin/base_site.html' %}
 
-{% for product in products.products %}
-    <ul>
-        <!--<li>{{ product.id }}</li>-->
-        <li>Product Title: {{ product.title }}</li>
-        <li>Description: {{ product.body_html }}</li>
-        {% for image in product.images %}
-            <img src="{{ image.src }}" alt="" width="{{ image.width}}" height="{{ image.height }}">
-        {% endfor %}
-        <h3><strong>Variants Available</strong></h3>
-        {% for variant in product.variants %}
-            {% if variant.inventory_quantity > 0 %}
-                <!--<li>{{ variant.id }}</li>-->
-                <li>Variant Title: {{ variant.title }}</li>
-                <!--<li>{{ variant.inventory_item_id }}</li>-->
-                <li>Variant Quantity: {{ variant.inventory_quantity }}</li>
-                <li>Variant Price: {{ variant.price }}</li>
-                <li>Variant Market Price: {{ variant.compare_at_price }}</li>
-                <li>Variant Option: {{ variant.option1 }}</li>
-                <br>
-                <form method="post" action="{% url 'shopifyapp:place-order' %}">
-                    <strong>QUANTITY: </strong><input type="number" name="quantity">
-                    <input type="text" hidden value="{{ product.title }}" name="product_title">
-                    <input type="number" hidden value="{{ variant.id }}" name="variant_id">
-                    <input type="submit" value="BUY NOW!">
-                </form>
-                <hr>
-                <br>
-            {% endif %}
-        {% endfor %}
-        <hr>
-        <br>
-    </ul>
-{% endfor %}
+{% block content %}
+    <a href="{% url 'shopifyapp:orders' %}">Orders</a>
+
+    {% for product in products.products %}
+        <ul>
+            <!--<li>{{ product.id }}</li>-->
+            <li>Product Title: {{ product.title }}</li>
+            <li>Description: {{ product.body_html }}</li>
+            {% for image in product.images %}
+                <img src="{{ image.src }}" alt="" width="{{ image.width}}" height="{{ image.height }}">
+            {% endfor %}
+            <h3><strong>Variants Available</strong></h3>
+            {% for variant in product.variants %}
+                {% if variant.inventory_quantity > 0 %}
+                    <!--<li>{{ variant.id }}</li>-->
+                    <li>Variant Title: {{ variant.title }}</li>
+                    <!--<li>{{ variant.inventory_item_id }}</li>-->
+                    <li>Variant Quantity: {{ variant.inventory_quantity }}</li>
+                    <li>Variant Price: {{ variant.price }}</li>
+                    <li>Variant Market Price: {{ variant.compare_at_price }}</li>
+                    <li>Variant Option: {{ variant.option1 }}</li>
+                    <br>
+                    <form method="post" action="{% url 'shopifyapp:place-order' %}">
+                        <strong>QUANTITY: </strong><input type="number" name="quantity">
+                        <input type="text" hidden value="{{ product.title }}" name="product_title">
+                        <input type="number" hidden value="{{ variant.id }}" name="variant_id">
+                        <input type="submit" value="BUY NOW!">
+                    </form>
+                    <hr>
+                    <br>
+                {% endif %}
+            {% endfor %}
+            <hr>
+            <br>
+        </ul>
+    {% endfor %}
+{% endblock %}
